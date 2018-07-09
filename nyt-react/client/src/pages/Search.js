@@ -5,9 +5,9 @@ import Input from '../components/Form/Input';
 import API from '../utils/API';
 import { EndYear } from '../components/Form/EndYear';
 import { StartYear } from '../components/Form/StartYear';
-import { Wrapper } from '../components/Wrapper/Wrapper';
+import Wrapper from '../components/Wrapper/Wrapper';
 import { Fragment } from 'react';
-import { Article } from '../components/Article/Article';
+import Article from '../components/Article/Article';
 
 class Search extends Component {
   state = {
