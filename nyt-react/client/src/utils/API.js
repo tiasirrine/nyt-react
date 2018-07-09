@@ -21,11 +21,11 @@ const API = {
   },
 
   saveArticle: function(data) {
-    return axios.post('./api/articles', data);
+    return axios.post('/api/articles', data);
   },
 
   getSavedArticles: function() {
-    return axios.get('./');
+    return axios.get('/');
   }
 };
 
