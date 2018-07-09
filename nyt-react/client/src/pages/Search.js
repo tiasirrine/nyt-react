@@ -5,6 +5,9 @@ import Input from '../components/Form/Input';
 import API from '../utils/API';
 import { EndYear } from '../components/Form/EndYear';
 import { StartYear } from '../components/Form/StartYear';
+import { Wrapper } from '../components/Wrapper/Wrapper';
+import { Fragment } from 'react';
+import { Article } from '../components/Article/Article';
 
 class Search extends Component {
   state = {
@@ -38,36 +41,48 @@ class Search extends Component {
       .catch(err => console.log(err));
   };
 
-  //loadArticles = () = {
-  //API.getArticles()
-  //}
-
   render() {
     console.log(this.state);
     return (
-      <form>
-        <Input onChange={this.handleInputChange} />
-        <DropDown />
-        <StartYear
-          type="text"
-          minLength="8"
-          maxLength="8"
-          className="form-control"
-          id="start-year"
-          name="StartYear"
-          onChange={this.handleInputChange}
-        />
-        <EndYear
-          type="text"
-          minLength="8"
-          maxLength="8"
-          className="form-control"
-          id="end-year"
-          name="endYear"
-          onChange={this.handleInputChange}
-        />
-        <Button onClick={this.searchArticles} />
-      </form>
+      <Fragment>
+        <form>
+          <Input name="search" className="form-control" onChange={this.handleInputChange} />
+          <DropDown name="record" onChange={this.handleInputChange} />
+          <StartYear
+            type="text"
+            minLength="8"
+            maxLength="8"
+            className="form-control"
+            id="start-year"
+            name="start"
+            onChange={this.handleInputChange}
+          />
+          <EndYear
+            type="text"
+            minLength="8"
+            maxLength="8"
+            className="form-control"
+            id="end-year"
+            name="end"
+            onChange={this.handleInputChange}
+          />
+          <Button onClick={this.searchArticles} />
+        </form>
+        <Wrapper>
+          {this.state.returnedArticles.map((indArticle, index) => (
+            <Article
+              _id={indArticle._id}
+              key={indArticle._id}
+              date={indArticle.pub_date}
+              title={indArticle.headline.main}
+              url={indArticle.web_url}
+              summary={indArticle.snippet}
+              saveArticles={this.saveArticles}
+              index={index}
+            />
+          ))}
+        </Wrapper>
+      </Fragment>
     );
   }
 }
