@@ -29,6 +29,25 @@ class Search extends Component {
     });
   };
 
+  saveArticles = event => {
+    const copy = this.state.returnedArticles.slice();
+    const savedArticle = copy[event.target.getAttribute('data-id')];
+    const savedObject = {};
+    savedObject.title = savedArticle.headline.main;
+    savedObject.url = savedArticle.web_url;
+    savedObject.date = savedArticle.pub_date;
+    savedObject.summary = savedArticle.snippet;
+
+    API.saveArticle(savedObject)
+      .then(res => {
+        this.setState({
+          returnedArticles: copy
+        });
+        console.log(this.state.returnedArticles);
+      })
+      .catch(err => console.log(err, savedObject));
+  };
+
   searchArticles = event => {
     event.preventDefault();
     API.scrape(this.state)
@@ -77,8 +96,9 @@ class Search extends Component {
               title={indArticle.headline.main}
               url={indArticle.web_url}
               summary={indArticle.snippet}
-              saveArticles={this.saveArticles}
+              saveArticle={this.saveArticle}
               index={index}
+              onClick={this.saveArticles}
             />
           ))}
         </Wrapper>
